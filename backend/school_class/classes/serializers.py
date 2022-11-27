@@ -3,6 +3,8 @@ from rest_framework import serializers
 
 
 class ClassSerializer(serializers.HyperlinkedModelSerializer):
+    id = serializers.ReadOnlyField()
+
     class Meta:
         model = Class
-        fields = ["name"]
+        fields = ["id", "name"]
