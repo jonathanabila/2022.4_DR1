@@ -1,13 +1,8 @@
 from classes.models import Class
 from classes.serializers import ClassSerializer
-from rest_framework import generics
+from rest_framework import viewsets
 
 
-class ClassesView(generics.ListCreateAPIView):
-    queryset = Class.objects.all()
-    serializer_class = ClassSerializer
-
-
-class ClassDetailView(generics.RetrieveUpdateDestroyAPIView):
+class ClassesView(viewsets.ModelViewSet):
     queryset = Class.objects.all()
     serializer_class = ClassSerializer
