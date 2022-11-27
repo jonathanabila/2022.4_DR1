@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  school_db:
+    image: postgres:14.3
+    # You can all queries executed on the database by uncomment this
+#    command: [ "postgres", "-c", "log_statement=all", "-c", "log_destination=stderr" ]
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - school_db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - school_net
+
+  school_api:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: infnet/school-api:local
+    container_name: school_api
+    command: python manage.py runserver 0.0.0.0:8081
+    env_file:
+      - .env.default
+    volumes:
+      - ./backend/:/app/
+    ports:
+      - "8081:8081"
+    networks:
+      - school_net
+    depends_on:
+      - school_db
+
+  schooldb_migrator:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: infnet/schooldb-migrator:local
+    container_name: school_migrator
+    command: python manage.py migrate
+    env_file:
+      - .env.default
+    volumes:
+      - ./backend/:/app/
+    networks:
+      - school_net
+    depends_on:
+      - school_db
+
+
+volumes:
+  school_db_data:
+
+networks:
+  school_net:
+    driver: bridge

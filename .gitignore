@@ -1,0 +1,11 @@
+.vscode
+*.egg-info
+*.pyc
+*.log
+.DS_Store
+dist/
+.idea/
+*.coverage
+*.pytest_cache
+*coverage.*
+*.mypy_cache
