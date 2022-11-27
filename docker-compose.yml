@@ -16,12 +16,18 @@ services:
     networks:
       - school_net
 
-  school_api:
+  base:
+    image: school_base.2022.4_dr1
     build:
-      context: .
-      dockerfile: dev.Dockerfile
-    image: infnet/school-api:local
-    container_name: school_api
+      context: backend/
+      dockerfile: Dockerfile
+
+  classroom:
+    build:
+      context: backend/classroom
+      dockerfile: Dockerfile
+    image: infnet/classroom:local
+    container_name: classroom
     command: python manage.py runserver 0.0.0.0:8081
     env_file:
       - .env.default
@@ -33,13 +39,14 @@ services:
       - school_net
     depends_on:
       - school_db
+      - classroom_migrator
 
-  schooldb_migrator:
+  classroom_migrator:
     build:
-      context: .
-      dockerfile: dev.Dockerfile
-    image: infnet/schooldb-migrator:local
-    container_name: school_migrator
+      context: backend/classroom
+      dockerfile: Dockerfile
+    image: infnet/classroom-migrator:local
+    container_name: classroom_migrator
     command: python manage.py migrate
     env_file:
       - .env.default
@@ -49,7 +56,6 @@ services:
       - school_net
     depends_on:
       - school_db
-
 
 volumes:
   school_db_data:

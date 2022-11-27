@@ -21,11 +21,10 @@ RUN poetry config virtualenvs.create false
 RUN mkdir /app
 WORKDIR /app
 
-COPY backend/poetry.lock backend/pyproject.toml /app/
+# Placeholder to allow poetry to install the dependencies accorditly to the folder structure.
+RUN mkdir backend/
+RUN touch backend/__init__.py
 
-RUN poetry install --no-dev
-COPY . /app/
+COPY poetry.lock pyproject.toml /app/
 
-ENV PYTHONPATH=/app/src:$PYTHONPATH
-
-EXPOSE 8081
+ENV PYTHONPATH=/app:$PYTHONPATH
