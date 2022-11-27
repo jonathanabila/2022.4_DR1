@@ -57,6 +57,41 @@ services:
     depends_on:
       - school_db
 
+  schoolclass:
+    build:
+      context: backend/school_class
+      dockerfile: Dockerfile
+    image: infnet/schoolclass:local
+    container_name: schoolclass
+    command: python manage.py runserver 0.0.0.0:8082
+    env_file:
+      - .env.default
+    volumes:
+      - ./backend/:/app/
+    ports:
+      - "8082:8082"
+    networks:
+      - school_net
+    depends_on:
+      - school_db
+      - schoolclass_migrator
+
+  schoolclass_migrator:
+    build:
+      context: backend/school_class
+      dockerfile: Dockerfile
+    image: infnet/schoolclass-migrator:local
+    container_name: schoolclass_migrator
+    command: python manage.py migrate
+    env_file:
+      - .env.default
+    volumes:
+      - ./backend/:/app/
+    networks:
+      - school_net
+    depends_on:
+      - school_db
+
 volumes:
   school_db_data:
 
