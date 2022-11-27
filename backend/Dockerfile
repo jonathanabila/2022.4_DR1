@@ -22,8 +22,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # Placeholder to allow poetry to install the dependencies accorditly to the folder structure.
-RUN mkdir backend/
-RUN touch backend/__init__.py
+COPY backend/ /backend
 
 COPY poetry.lock pyproject.toml /app/
 
