@@ -11,6 +11,8 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - school_db_data:/var/lib/postgresql/data
+      - ./scripts/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+
     ports:
       - "5432:5432"
     networks:

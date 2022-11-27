@@ -31,11 +31,8 @@ ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
     "django.contrib.staticfiles",
     # externals
     "rest_framework",
@@ -75,7 +72,7 @@ WSGI_APPLICATION = "classroom.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DB_NAME_PRIMARY = os.getenv("DB_NAME", "postgres")
+DB_NAME_PRIMARY = os.getenv("DB_NAME", "classroom")
 DB_USER_PRIMARY = os.getenv("DB_USER", "postgres")
 DB_PASSWORD_PRIMARY = os.getenv("DB_PASSWORD", "postgres")
 DB_HOST_PRIMARY = os.getenv("DB_HOST", "localhost")
