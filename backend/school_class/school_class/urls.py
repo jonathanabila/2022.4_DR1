@@ -13,6 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import include, path
+from django.urls import include, path, re_path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 
-urlpatterns = [path("classes/", include("classes.urls"))]
+schema_view = get_schema_view(
+    openapi.Info(
+        title="SchoolClass API",
+        default_version="v1",
+        description="DR1-2022.4",
+        terms_of_service="https://www.google.com/policies/terms/",
+    ),
+    public=True,
+)
+
+urlpatterns = [
+    # Docs
+    re_path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
+    path("classes/", include("classes.urls")),
+]

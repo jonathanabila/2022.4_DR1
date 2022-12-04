@@ -33,6 +33,7 @@ docker compose up
 Com isso as aplicações serão iniciadas nas seguintes portas:
 
 - classroom: `http://0.0.0.0:8081/`
+- schoolclass: `http://0.0.0.0:8082/`
 
 ## Banco de dados
 Não é necessário realizar nenhum comando para a criação das tabelas no banco de dados, já que todo
@@ -45,3 +46,10 @@ docker compose up XXX
 Substituindo o XXX pelo nome do migrator:
 
 - classroom -> classroom_migrator
+- school_class -> schoolclass_migrator
+
+## Documentação
+A documentação das APIs pode ser encontrada em seus respectivos endereços na rota `/swagger`.
+
+- classroom: `http://0.0.0.0:8081/swagger`
+- schoolclass: `http://0.0.0.0:8082/swagger`
