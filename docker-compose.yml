@@ -12,7 +12,6 @@ services:
     volumes:
       - school_db_data:/var/lib/postgresql/data
       - ./scripts/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-
     ports:
       - "5432:5432"
     networks:
@@ -23,6 +22,8 @@ services:
     build:
       context: backend/
       dockerfile: Dockerfile
+    volumes:
+      - ./backend/libs/:/app/libs/
 
   classroom:
     build:
@@ -34,7 +35,8 @@ services:
     env_file:
       - .env.default
     volumes:
-      - ./backend/:/app/
+      - ./backend/classroom/:/app/classroom/
+      - ./backend/libs/:/app/libs/
     ports:
       - "8081:8081"
     networks:
@@ -53,7 +55,8 @@ services:
     env_file:
       - .env.default
     volumes:
-      - ./backend/:/app/
+      - ./backend/classroom/:/app/classroom/
+      - ./backend/libs/:/app/libs/
     networks:
       - school_net
     depends_on:
@@ -69,7 +72,8 @@ services:
     env_file:
       - .env.default
     volumes:
-      - ./backend/:/app/
+      - ./backend/school_class:/app/school_class/
+      - ./backend/libs/:/app/libs/
     ports:
       - "8082:8082"
     networks:
@@ -88,7 +92,8 @@ services:
     env_file:
       - .env.default
     volumes:
-      - ./backend/:/app/
+      - ./backend/school_class:/app/school_class/
+      - ./backend/libs/:/app/libs/
     networks:
       - school_net
     depends_on:

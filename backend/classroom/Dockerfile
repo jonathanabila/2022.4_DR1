@@ -1,9 +1,9 @@
 FROM school_base.2022.4_dr1
 
 RUN mkdir classroom
-WORKDIR classroom
+WORKDIR /app/classroom/
 
-COPY poetry.lock pyproject.toml /classroom/
+COPY poetry.lock pyproject.toml /app/classroom/
 
 RUN poetry install --no-dev
 COPY . /classroom

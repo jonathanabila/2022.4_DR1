@@ -1,10 +1,8 @@
 from classrooms.models import ClassRoom
 from classrooms.serializers import ClassRoomSerializer
+from events import SchoolClassEventHandler
 from rest_framework import status, viewsets
 from rest_framework.response import Response
-
-# TODO: Identify why this is isn't importing from the library.
-from libs.events.events.events import SchoolClassEventHandler  # type: ignore
 
 
 class ClassRoomsView(viewsets.ModelViewSet):

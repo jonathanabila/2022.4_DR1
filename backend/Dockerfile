@@ -22,8 +22,13 @@ RUN mkdir /app
 WORKDIR /app
 
 # Placeholder to allow poetry to install the dependencies accorditly to the folder structure.
-COPY backend/ /backend
-
+COPY backend/ /app/backend
 COPY poetry.lock pyproject.toml /app/
 
 ENV PYTHONPATH=/app:$PYTHONPATH
+
+# Libraries
+WORKDIR /app
+COPY libs /app/libs
+
+RUN cd libs/events && poetry install --no-dev
