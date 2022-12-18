@@ -53,3 +53,14 @@ A documentação das APIs pode ser encontrada em seus respectivos endereços na 
 
 - classroom: `http://0.0.0.0:8081/swagger`
 - schoolclass: `http://0.0.0.0:8082/swagger`
+
+
+## Testes
+Para executar os testes de cada aplicação é necessário ter o banco de dados da aplicação rodando, e
+executar o seguinte comando:
+
+```bash
+./manager.py test
+```
+
+Esse comando deve ser executado dentro do repositório que se deseja testar.
